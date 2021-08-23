@@ -1,15 +1,15 @@
 <template>
-  <hello-world />
+  <brief_article />
 </template>
 
 <script>
-  import HelloWorld from '../components/HelloWorld'
+import brief_article from "../components/brief_article";
 
-  export default {
-    name: 'Home',
+export default {
+  name: "Articles",
 
-    components: {
-      HelloWorld,
-    },
-  }
+  components: {
+    brief_article,
+  },
+};
 </script>
