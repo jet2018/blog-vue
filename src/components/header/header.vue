@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Menubar :model="items">
+    <Menubar fixed :model="items">
       <template #start>
         <img
           alt="logo"

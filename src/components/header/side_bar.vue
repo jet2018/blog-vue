@@ -1,7 +1,9 @@
 <template>
-  <div class="ml-2 pl-3">
-    <h3>Our Categories</h3>
-    <MegaMenu :model="items" orientation="vertical" />
+  <div class="ml-2 pl-3 w-100">
+    <h3>Explore our Categories</h3>
+    <MegaMenu :model="items" class="w-75" orientation="vertical" />
+    <hr class="w-75" />
+    <!-- subscribe -->
   </div>
 </template>
 
