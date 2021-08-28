@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-2">
+  <div class="card p-2 mb-2">
     <b-media left-align horizontal-align="center" class="mt-1">
       <template #aside>
         <b-img
@@ -9,47 +9,56 @@
           alt="placeholder"
         ></b-img>
       </template>
-      <small class="text-secondary"
-        ><Chip
-          v-bind:class="['text-capitalize text-light', 'bg-' + blog_color]"
+      <small class="text-secondary">
+        <Chip
+          v-bind:class="['text-capitalize text-light ', 'bg-' + blog_color]"
           :label="'By ' + full_name"
           :image="image + poster_image" />
-        <span class="float-right"
-          >Added
-          <timeago :datetime="posted_on" :auto-update="60"></timeago></span
+        <span class="float-right">
+          Added
+          <timeago
+            :datetime="posted_on"
+            class="pr-1"
+            :auto-update="60"
+          ></timeago>
+          <Button
+            class="rounded float-end"
+            v-bind:class="'bg-' + blog_color"
+            icon="pi pi-bookmark" /></span
       ></small>
       <router-link
         to="/"
         v-bind:class="['mt-0 mb-1 h5 d-block text-primary']"
         >{{ title }}</router-link
       >
-      <!-- <truncate
-      class="mb-0"
-      collapsed-text-class="collapsed "
-      clamp=""
-      :length="50"
-      less=""
-      type="html"
-      :text="body"
-      ></truncate> -->
       <div>
         <span
           ><router-link
             v-for="cat in category"
             :key="cat"
             to="#"
-            v-text="'#' + cat"
+            v-text="'#' + cat + ' |'"
             icon="pi pi-trash" /></span
         >&nbsp;
-        <span
-          ><router-link
-            v-for="cat in sub_category"
+        <span>
+          <!-- <router-link
             class="text-sm text-info"
             :key="cat"
             to="#"
-            v-text="'##' + cat"
+            v-html="'##' + cat + '&nbsp;'"
             icon="pi pi-trash"
-        /></span>
+          /> -->
+          <v-chip
+            x-small
+            v-for="cat in sub_category"
+            :key="cat"
+            color="secondary"
+            to="#"
+            dark
+          >
+            {{ cat }}
+          </v-chip>
+        </span>
       </div>
 
       <!-- to be hidden to unauthenticated users -->
@@ -66,11 +75,7 @@
               class="p-button-text"
               icon="pi pi-thumbs-up"
             />
-            <Button
-              label="Bookmark"
-              class="p-button-text"
-              icon="pi pi-bookmark"
-            />
+
             <Button
               v-if="total_comments > 0"
               :label="total_comments + ' comments'"
@@ -79,7 +84,7 @@
             />
             <Button
               v-else
-              label="Add a comment"
+              label="Comment"
               class="p-button-text"
               icon="pi pi-comments"
             />

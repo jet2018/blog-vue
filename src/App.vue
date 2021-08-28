@@ -3,7 +3,7 @@
     <!-- the header section -->
     <my_header />
 
-    <v-main class="container-fluid">
+    <v-main class="container-fluid" style="background: #eef0f1">
       <v-row col-12>
         <!-- the sidebar section -->
         <v-col lg="3" class="d-md-block d-none" xl="3">
