@@ -66,11 +66,13 @@
         <v-col lg="12">
           <span class="p-buttonset">
             <Button
+              @click="upVote"
               :label="total_downvotes"
               class="p-button-text"
               icon="pi pi-thumbs-down"
             />
             <Button
+              @click="downVote"
               :label="total_upvotes"
               class="p-button-text"
               icon="pi pi-thumbs-up"
@@ -78,11 +80,14 @@
 
             <Button
               v-if="total_comments > 0"
+              :to="{ name: 'Comment' }"
               :label="total_comments + ' comments'"
               class="p-button-text"
-              icon="pi pi-comments"
+              icon="pi
+            pi-comments"
             />
             <Button
+              :to="{ name: 'Comment' }"
               v-else
               label="Comment"
               class="p-button-text"
@@ -99,8 +104,38 @@
 import Chip from "primevue/chip";
 import Button from "primevue/button";
 import config from "@/config";
-
+import axios from "@/axios";
 export default {
+  computed: {
+    user() {
+      return this.$store.state.user || null;
+    },
+    token() {
+      return this.$store.state.access || null;
+    },
+  },
+
+  methods: {
+    async upVote() {
+      if (!this.user) {
+        return this.$router.push(
+          "login?next=" + this.$router.currentRoute.path
+        );
+      }
+
+      let tok = this.token ? this.token : localStorage.getItem("access");
+      const response = await axios.post("blog/upvote/" + this.slug + "/", {
+        headers: {
+          Authorization: `Bearer ${tok}`,
+        },
+      });
+
+      this.total_upvotes = response.data.total_upvotes;
+      this.$toasted.show("You upvoted this article successfully", {
+        duration: 5000,
+      });
+    },
+  },
   components: {
     // truncate,
     Button,
@@ -127,6 +162,12 @@ export default {
       type: Number, // String, Number, Boolean, Function, Object, Array
       required: true,
       default: 0,
+    },
+
+    slug: {
+      type: String, // String, Number, Boolean, Function, Object, Array
+      required: true,
+      default: null,
     },
 
     total_downvotes: {
