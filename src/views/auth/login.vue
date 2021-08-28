@@ -118,6 +118,7 @@ export default {
       this.$store.commit("set", ["access", access_token]);
       this.$store.commit("set", ["refresh", refresh_token]);
       this.$store.commit("set", ["user", decoded]);
+      window.location.href = ".";
     },
   },
 };

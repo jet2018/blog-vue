@@ -7,6 +7,7 @@ import vuetify from './plugins/vuetify'
 import PrimeVue from 'primevue/config';
 import './registerServiceWorker'
 import "primevue/resources/themes/saga-blue/theme.css"
+// import 'primevue/resources/themes/bootstrap4-dark-purple/theme.css'
 import "primevue/resources/primevue.min.css"
 import "primeicons/primeicons.css"
 import VueTimeago from 'vue-timeago'
@@ -16,7 +17,10 @@ import Toasted from 'vue-toasted';
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'vue-loaders/dist/vue-loaders.css';
+import VueLoaders from 'vue-loaders';
 
+Vue.use(VueLoaders);
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
