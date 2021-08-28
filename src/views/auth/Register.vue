@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-5 h-100 border-none">
+  <div class="pt-4 h-100 border-none">
     <center>
       <img src="@/assets/mainlogo.png" class="img-sm" width="200" />
 
@@ -10,15 +10,21 @@
           ><span class="text-success">alks</span></span
         >
       </h1>
-      <span class="alert">{{ message }}</span>
       <!-- <Steps :model="items" /> -->
-      <form class="mx-auto p-shadow-2" @submit.prevent="Login">
-        <div class="p-5 p-d-block mx-auto">
+      <form class="mx-auto p-shadow-2">
+        <div class="p-5 pt-4 p-d-block mx-auto">
           <div>
             <span class="p-input-icon-right p-float-label">
               <InputText id="username" type="text" v-model="username" />
               <i class="pi pi-user" />
               <label for="username">Username</label>
+            </span>
+          </div>
+          <div class="mt-3">
+            <span class="p-input-icon-right p-float-label">
+              <InputText id="email" type="email" v-model="email" />
+              <i class="pi pi-user-plus" />
+              <label for="username">Email</label>
             </span>
           </div>
           <div class="mt-2">
@@ -27,7 +33,7 @@
                 <h6>Pick a password</h6>
               </template>
               <template #footer>
-                <!-- <Divider /> -->
+                <Divider />
                 <p class="p-mt-2">Suggestions</p>
                 <ul class="p-pl-2 p-ml-2 p-mt-0" style="line-height: 1.5">
                   <li>At least one lowercase</li>
@@ -41,14 +47,13 @@
           <div></div>
           <hr />
           <Button
-            type="submit"
             iconPos="right"
             icon="pi pi-sign-in p-button-sm  p-button-raised p-button-rounded"
-            label="Login"
+            label="Register"
           />
           <div class="p-d-inline-block">
-            <router-link class="mr-3" :to="{ name: 'Register' }"
-              >Create account</router-link
+            <router-link class="mr-3" :to="{ name: 'Login' }"
+              >Login</router-link
             >
             ||
             <router-link class="ml-3" :to="{ name: 'Forgot' }"
@@ -65,60 +70,23 @@
 import Password from "primevue/password";
 import Button from "primevue/button";
 import InputText from "primevue/inputtext";
-import jwt_decode from "jwt-decode";
-import axios from "@/axios";
 export default {
+  methods: {
+    GoHome() {
+      this.$router.push({ name: "Home" });
+    },
+  },
   components: {
     Password,
     InputText,
     Button,
   },
-  name: "Login",
+  name: "Register",
   data() {
     return {
       username: "",
       password: "",
-      message: "",
     };
-  },
-  methods: {
-    // working on this
-    GoHome() {
-      this.$router.push({ name: "Home" });
-    },
-
-    async Login() {
-      if (this.password.length < 1) {
-        this.message = "Password is required";
-        return false;
-      } else if (this.username.length < 1) {
-        this.message = "Username is required";
-        return false;
-      } else {
-        this.message = "";
-      }
-
-      const content = {
-        username: this.username,
-        password: this.username,
-      };
-
-      const response = await axios.post("login/", content);
-
-      // this.$store.commit("LOGIN", response.data);
-      const payload = response.data;
-      const access_token = payload.access;
-      const refresh_token = payload.refresh;
-      const decoded = JSON.stringify(jwt_decode(access_token));
-
-      localStorage.setItem("user", decoded);
-      localStorage.setItem("refresh", refresh_token);
-      localStorage.setItem("access", access_token);
-
-      this.$store.commit("set", ["access", access_token]);
-      this.$store.commit("set", ["refresh", refresh_token]);
-      this.$store.commit("set", ["user", decoded]);
-    },
   },
 };
 </script>
