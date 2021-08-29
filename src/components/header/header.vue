@@ -90,13 +90,9 @@ export default {
           icon: "pi pi-fw pi-user-edit",
           to: "/add",
           command: () => {
-            !this.user.is_author;
+            this.user.is_author;
           },
         },
-        // {
-        //   label: "Quit",
-        //   icon: "pi pi-fw pi-power-off",
-        // },
       ],
     };
   },
