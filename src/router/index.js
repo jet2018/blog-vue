@@ -5,13 +5,20 @@ import Login from '../views/auth/login.vue'
 import Register from '../views/auth/Register.vue'
 import Forgot from '../views/auth/Forgot.vue'
 import Page404 from '../views/404.vue'
-
+import Authors from "../components/authors"
+import joinus from "../components/joinus"
+import single from "../views/single_blog"
 Vue.use(VueRouter)
 
 const routes = [{
         path: '/',
         name: 'Home',
         component: Home
+    },
+    {
+        path: '/join',
+        name: 'Join',
+        component: joinus
     },
     {
         path: '/login',
@@ -22,7 +29,7 @@ const routes = [{
             if (to.name === 'Login' && !token) {
                 next()
             } else {
-                next(to)
+                next()
             }
         }
     },
@@ -33,9 +40,21 @@ const routes = [{
     },
 
     {
+        path: '/:slug',
+        name: 'Single',
+        component: single
+    },
+
+    {
         path: '/forgot',
         name: 'Forgot',
         component: Forgot
+    },
+
+    {
+        path: '/authors',
+        name: 'Authors',
+        component: Authors
     },
 
     {

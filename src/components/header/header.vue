@@ -89,9 +89,7 @@ export default {
           label: "Become an author",
           icon: "pi pi-fw pi-user-edit",
           to: "/add",
-          command: () => {
-            this.user.is_author;
-          },
+          visible: this.user ? this.user.is_author : true,
         },
       ],
     };

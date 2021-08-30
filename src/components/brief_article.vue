@@ -27,7 +27,7 @@
             icon="pi pi-bookmark" /></span
       ></small>
       <router-link
-        to="/"
+        :to="slug"
         v-bind:class="['mt-0 mb-1 h5 d-block text-primary']"
         >{{ title }}</router-link
       >
@@ -75,7 +75,7 @@
               @click="downVote"
               :label="total_upvotes"
               class="p-button-text"
-              icon="pi pi-thumbs-up"
+              icon="pi pi-heart"
             />
 
             <Button
