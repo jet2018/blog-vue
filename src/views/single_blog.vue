@@ -39,7 +39,6 @@ export default {
   //   before
 
   mounted() {
-    alert(this.article);
     this.getArticle();
   },
 };

@@ -11,6 +11,9 @@
       <div class="card-body">
         <form class="form">
           <v-text-field
+            v-model="email"
+            @keypress.enter.prevent="Subscriber"
+            type="email"
             label="Enter you email"
             append-icon="mdi-send"
           ></v-text-field>
@@ -115,6 +118,7 @@ export default {
       authors: null,
       email: null,
       recents: null,
+      subscribers: null,
     };
   },
   methods: {
@@ -129,6 +133,21 @@ export default {
     async fetchauthors() {
       const response = await axios.get("blog/authors/brief/");
       this.authors = response.data;
+    },
+
+    async Subscriber() {
+      alert("am here");
+      const data = {
+        "email": this.email,
+      };
+      const response = await axios.post("blog/subscribe/", data);
+      this.$toasted.show(response.data.message, { duration: 7000 });
+    },
+  },
+
+  computed: {
+    user() {
+      return this.$store.state.user || null;
     },
   },
 
