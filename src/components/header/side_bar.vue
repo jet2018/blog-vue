@@ -3,11 +3,11 @@
     <div class="card p-3 mb-2">
       <h5>#about-us</h5>
       <strong class="text-danger"
-        >Eas<span class="text-warning">t</span
+        >African<span class="text-warning">t</span
         ><span class="text-success">alks</span
         ><span class="text-dark">
           community is a non-profit community that aims to bridge communication
-          loops in East Africa and Africa in general.</span
+          loops in Africa as a continent.</span
         ></strong
       >
       <span
@@ -44,8 +44,9 @@ export default {
 
   methods: {
     async fetchCategories() {
-      const response = await axios.get("blog/categories");
+      const response = await axios.get("blog/categories/");
       this.items = response.data;
+      console.log(this.items);
     },
   },
 

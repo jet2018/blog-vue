@@ -193,7 +193,7 @@ export default {
     introductory_file: {
       type: String, // String, Number, Boolean, Function, Object, Array
       required: true,
-      default: null,
+      default: "",
     },
     poster_image: {
       type: String, // String, Number, Boolean, Function, Object, Array
@@ -206,7 +206,7 @@ export default {
       default: null,
     },
     sub_category: {
-      type: String, // String, Number, Boolean, Function, Object, Array
+      type: Array, // String, Number, Boolean, Function, Object, Array
       required: true,
       default: null,
     },

@@ -9,14 +9,18 @@
         subscribed email respectively below.</span
       >
       <div class="card-body">
-        <form class="form">
+        <form class="form" @submit.prevent="Subscriber">
           <v-text-field
             v-model="email"
-            @keypress.enter.prevent="Subscriber"
             type="email"
             label="Enter you email"
-            append-icon="mdi-send"
           ></v-text-field>
+          <Button
+            type="submit"
+            icon="pi pi-send"
+            iconPos="right"
+            label="Subscribe or Unsubscribe"
+          />
         </form>
       </div>
     </div>
@@ -52,7 +56,7 @@
     <!-- authors -->
     <div class="p-shadow-4 card mt-3">
       <h4 class="p-card-title p-2">#top-authors</h4>
-      <div v-for="author in authors" :key="author">
+      <div v-for="author in authors" :key="author.id">
         <div class="border-top pt-1">
           <b-media>
             <template #aside>
@@ -103,6 +107,7 @@
 <script>
 import axios from "@/axios";
 import Avatar from "primevue/avatar";
+import Button from "primevue/button";
 import images from "@/config";
 // import InputText from "primevue/inputtext"
 export default {
@@ -110,6 +115,7 @@ export default {
   components: {
     // InputText
     Avatar,
+    Button,
   },
   data() {
     return {
@@ -135,13 +141,22 @@ export default {
       this.authors = response.data;
     },
 
-    async Subscriber() {
-      alert("am here");
-      const data = {
-        "email": this.email,
-      };
-      const response = await axios.post("blog/subscribe/", data);
-      this.$toasted.show(response.data.message, { duration: 7000 });
+    Subscriber() {
+      // const response = await axios.post("blog/subscribe/", {
+      //   email: this.email,
+      // });
+      // this.$toasted.show(response.data.message, { duration: 7000 });
+      // alert(response.data.message);
+      // const context = ;
+      alert(this.email);
+      axios
+        .post("blog/subscribe/", {
+          email: this.email,
+        })
+        .then((response) => {
+          this.$toasted.show(response.data.message, { duration: 7000 });
+          this.email = null;
+        });
     },
   },
 

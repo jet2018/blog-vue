@@ -5,7 +5,7 @@
       <vue-loaders-ball-beat
         color="red"
         v-if="loading"
-        scale="3"
+        scale="2"
       ></vue-loaders-ball-beat>
     </center>
     <div v-if="!loading">
