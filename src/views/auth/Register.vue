@@ -121,6 +121,7 @@
 // import Steps from 'primevue/steps';
 import Password from "primevue/password";
 import Button from "primevue/button";
+import jwt_decode from "jwt-decode";
 import InputText from "primevue/inputtext";
 import axios from "@/axios";
 import Divider from "primevue/divider";
@@ -163,6 +164,23 @@ export default {
         this.$toasted.show(response.data.error, { duration: 5000 });
       else if (response.data.message)
         this.$toasted.show(response.data.message, { duration: 5000 });
+      const LOG_IN = await axios.post("login/", {
+        username: response.data.username,
+        password: response.data.password,
+      });
+      const payload = LOG_IN.data;
+      const access_token = payload.access;
+      const refresh_token = payload.refresh;
+      const decoded = JSON.stringify(jwt_decode(access_token));
+
+      localStorage.setItem("user", decoded);
+      localStorage.setItem("refresh", refresh_token);
+      localStorage.setItem("access", access_token);
+
+      this.$store.commit("set", ["access", access_token]);
+      this.$store.commit("set", ["refresh", refresh_token]);
+      this.$store.commit("set", ["user", decoded]);
+      window.location.href = "/";
     },
   },
   components: {
