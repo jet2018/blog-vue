@@ -56,7 +56,6 @@ const routes = [{
         name: 'Authors',
         component: Authors
     },
-
     {
         path: "*",
         name: "404",
@@ -65,11 +64,10 @@ const routes = [{
 ]
 
 const router = new VueRouter({
+    routes,
     mode: 'history',
-    linkActiveClass: 'active',
-    scrollBehavior: () => ({ y: 0 }),
-    routes
+    // linkActiveClass: 'active',
+    // scrollBehavior: () => ({ y: 0 }),
 })
-
 
 export default router

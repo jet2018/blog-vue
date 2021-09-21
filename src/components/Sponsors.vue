@@ -141,22 +141,14 @@ export default {
       this.authors = response.data;
     },
 
-    Subscriber() {
-      // const response = await axios.post("blog/subscribe/", {
-      //   email: this.email,
-      // });
-      // this.$toasted.show(response.data.message, { duration: 7000 });
-      // alert(response.data.message);
-      // const context = ;
-      alert(this.email);
-      axios
-        .post("blog/subscribe/", {
-          email: this.email,
-        })
-        .then((response) => {
-          this.$toasted.show(response.data.message, { duration: 7000 });
-          this.email = null;
-        });
+    async Subscriber() {
+      const response = await axios.post("blog/subscribe/", {
+        email: this.email,
+      });
+      if (response.data.message) {
+        this.$toasted.show(response.data.message, { duration: 7000 });
+        this.email = "";
+      }
     },
   },
 

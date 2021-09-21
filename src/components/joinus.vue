@@ -29,7 +29,10 @@
             </p>
           </v-card-text>
           <center>
-            <v-btn block color="success">Proceed as an author</v-btn>
+            <v-btn v-if="user.is_author" block color="success"
+              >View your author activity</v-btn
+            >
+            <v-btn v-else block color="success">Proceed as an author</v-btn>
           </center>
         </v-card>
       </v-col>
@@ -80,5 +83,10 @@
 <script>
 export default {
   name: "joinus",
+  computed: {
+    user() {
+      return JSON.parse(localStorage.getItem("user"));
+    },
+  },
 };
 </script>

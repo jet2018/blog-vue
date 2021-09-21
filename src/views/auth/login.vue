@@ -100,25 +100,30 @@ export default {
 
       const content = {
         username: this.username,
-        password: this.username,
+        password: this.password,
       };
 
-      const response = await axios.post("login/", content);
+      try {
+        const response = await axios.post("login/", content);
+        // this.$store.commit("LOGIN", response.data);
+        const payload = response.data;
+        const access_token = payload.access;
+        const refresh_token = payload.refresh;
+        const decoded = JSON.stringify(jwt_decode(access_token));
 
-      // this.$store.commit("LOGIN", response.data);
-      const payload = response.data;
-      const access_token = payload.access;
-      const refresh_token = payload.refresh;
-      const decoded = JSON.stringify(jwt_decode(access_token));
+        localStorage.setItem("user", decoded);
+        localStorage.setItem("refresh", refresh_token);
+        localStorage.setItem("access", access_token);
 
-      localStorage.setItem("user", decoded);
-      localStorage.setItem("refresh", refresh_token);
-      localStorage.setItem("access", access_token);
-
-      this.$store.commit("set", ["access", access_token]);
-      this.$store.commit("set", ["refresh", refresh_token]);
-      this.$store.commit("set", ["user", decoded]);
-      window.location.href = ".";
+        this.$store.commit("set", ["access", access_token]);
+        this.$store.commit("set", ["refresh", refresh_token]);
+        this.$store.commit("set", ["user", decoded]);
+        window.location.href = ".";
+      } catch (error) {
+        if (error.response) {
+          this.$toasted.error(error.response.data.detail, { duration: 5000 });
+        }
+      }
     },
   },
 };

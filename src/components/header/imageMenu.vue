@@ -29,6 +29,12 @@ export default {
           items: [
             { label: "Update", icon: "pi pi-fw pi-cog", to: "/options" },
             {
+              label: "Author activity",
+              icon: "pi pi-fw pi-user-edit",
+              to: "/author",
+              visibility: () => JSON.parse(this.$store.state.user.is_author),
+            },
+            {
               label: "Sign Out",
               icon: "pi pi-fw pi-power-off",
               command: () => {

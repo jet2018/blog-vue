@@ -1,4 +1,5 @@
+// const DEBUG = true;
 export default {
-    api_endpoint_dev: "http://127.0.0.1:8000/api/",
-    images: "http://localhost:8000",
+    api_endpoint_dev: process.env.NODE_ENV === 'production' ? "http://africantalks.herokuapp.com/api/" : "http://localhost:8000/api/",
+    images: process.env.NODE_ENV === 'production' ? "" : "http://localhost:8000",
 }
