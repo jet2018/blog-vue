@@ -8,6 +8,7 @@ import Page404 from '../views/404.vue'
 import Authors from "../components/authors"
 import joinus from "../components/joinus"
 import single from "../views/single_blog"
+import community_home from "../views/community/index"
 Vue.use(VueRouter)
 
 const routes = [{
@@ -16,12 +17,12 @@ const routes = [{
         component: Home
     },
     {
-        path: '/join',
+        path: 'join',
         name: 'Join',
         component: joinus
     },
     {
-        path: '/login',
+        path: 'login',
         name: 'Login',
         component: Login,
         beforeEnter: (to, from, next) => {
@@ -34,7 +35,7 @@ const routes = [{
         }
     },
     {
-        path: '/register',
+        path: 'register',
         name: 'Register',
         component: Register
     },
@@ -46,15 +47,21 @@ const routes = [{
     },
 
     {
-        path: '/forgot',
+        path: 'forgot',
         name: 'Forgot',
         component: Forgot
     },
 
     {
-        path: '/authors',
+        path: 'authors',
         name: 'Authors',
         component: Authors
+    },
+
+    {
+        path: "community",
+        name: "Community",
+        component: community_home
     },
     {
         path: "*",

@@ -32,7 +32,7 @@ export default {
               label: "Author activity",
               icon: "pi pi-fw pi-user-edit",
               to: "/author",
-              visibility: () => JSON.parse(this.$store.state.user.is_author),
+              visible: () => (this.user && this.user.is_author ? true : false),
             },
             {
               label: "Sign Out",

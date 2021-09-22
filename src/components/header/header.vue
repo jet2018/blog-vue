@@ -57,39 +57,46 @@ export default {
         {
           label: "Contact us",
           icon: "pi pi-fw pi-comments",
-          to: "/contact",
+          to: "contact",
         },
         {
           label: "Community",
           icon: "pi pi-fw pi-user",
-          items: [
-            {
-              label: "Authors",
-              icon: "pi pi-fw pi-user-edit",
-              to: "/authors",
-            },
-            {
-              label: "Sponsors",
-              icon: "pi pi-fw pi-users",
-              to: "/sponsors",
-            },
-            {
-              label: "Join us",
-              icon: "pi pi-fw pi-user-plus",
-              to: "/join",
-            },
-          ],
+          to: "community",
+          // items: [
+          //   {
+          //     label: "Authors",
+          //     icon: "pi pi-fw pi-user-edit",
+          //     to: "/authors",
+          //   },
+          //   {
+          //     label: "Sponsors",
+          //     icon: "pi pi-fw pi-users",
+          //     to: "/sponsors",
+          //   },
+          //   {
+          //     label: "Join us",
+          //     icon: "pi pi-fw pi-user-plus",
+          //     to: "/join",
+          //   },
+          // ],
         },
         {
           label: "Sponsor us",
           icon: "pi pi-fw pi-euro",
-          to: "/sponsor",
+          to: "sponsor",
         },
         {
           label: "Become an author",
           icon: "pi pi-fw pi-user-edit",
-          to: "/add",
-          visible: () => (this.user.is_author ? false : true),
+          to: "add",
+          visible: () => (this.user && this.user.is_author ? false : true),
+        },
+        {
+          label: "Write an article",
+          icon: "pi pi-fw pi-user-edit",
+          to: "add",
+          visible: () => (this.user && this.user.is_author ? true : false),
         },
       ],
     };

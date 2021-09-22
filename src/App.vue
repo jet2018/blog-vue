@@ -30,10 +30,6 @@ export default {
     my_header,
     Sponsors,
   },
-  name: "App",
-
-  data: () => ({
-    //
-  }),
+  name: "app",
 };
 </script>

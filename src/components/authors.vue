@@ -40,6 +40,7 @@
 <script>
 import axios from "@/axios";
 export default {
+  name: "Authors",
   data() {
     return {
       authors: null,
@@ -51,10 +52,9 @@ export default {
       const response = await axios.get("blog/authors/");
       this.authors = response.data;
       this.loading = false;
+      console.log(this.authors);
     },
   },
-
-  name: "Authors",
 
   mounted() {
     this.fetchAuthors();
