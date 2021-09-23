@@ -8,6 +8,7 @@ import Page404 from '../views/404.vue'
 import Authors from "../components/authors"
 import joinus from "../components/joinus"
 import single from "../views/single_blog"
+import contactUs from "../components/contactUs"
 import community_home from "../views/community/index"
 Vue.use(VueRouter)
 
@@ -17,12 +18,16 @@ const routes = [{
         component: Home
     },
     {
-        path: 'join',
+        path: '/join',
         name: 'Join',
         component: joinus
     },
     {
-        path: 'login',
+        path: "/contact",
+        component: contactUs,
+        name: "",
+    }, {
+        path: '/login',
         name: 'Login',
         component: Login,
         beforeEnter: (to, from, next) => {
@@ -35,29 +40,23 @@ const routes = [{
         }
     },
     {
-        path: 'register',
+        path: '/register',
         name: 'Register',
         component: Register
-    },
-
-    {
+    }, {
         path: '/:slug',
         name: 'Single',
         component: single
-    },
-
-    {
+    }, {
         path: 'forgot',
         name: 'Forgot',
         component: Forgot
     },
-
     {
         path: 'authors',
         name: 'Authors',
         component: Authors
     },
-
     {
         path: "community",
         name: "Community",
@@ -73,8 +72,8 @@ const routes = [{
 const router = new VueRouter({
     routes,
     mode: 'history',
-    // linkActiveClass: 'active',
-    // scrollBehavior: () => ({ y: 0 }),
+    linkActiveClass: 'active',
+    scrollBehavior: () => ({ y: 0 }),
 })
 
 export default router

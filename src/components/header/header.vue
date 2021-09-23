@@ -84,12 +84,12 @@ export default {
         {
           label: "Sponsor us",
           icon: "pi pi-fw pi-euro",
-          to: "sponsor",
+          to: "/sponsor",
         },
         {
           label: "Become an author",
           icon: "pi pi-fw pi-user-edit",
-          to: "add",
+          to: "/join",
           visible: () => (this.user && this.user.is_author ? false : true),
         },
         {

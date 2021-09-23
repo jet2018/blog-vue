@@ -118,7 +118,10 @@ export default {
         this.$store.commit("set", ["access", access_token]);
         this.$store.commit("set", ["refresh", refresh_token]);
         this.$store.commit("set", ["user", decoded]);
-        window.location.href = ".";
+
+        this.$route.params.next
+          ? (window.location.href = this.$route.params.next)
+          : (window.location.href = ".");
       } catch (error) {
         if (error.response) {
           this.$toasted.error(error.response.data.detail, { duration: 5000 });
@@ -126,5 +129,6 @@ export default {
       }
     },
   },
+  mounted() {},
 };
 </script>
