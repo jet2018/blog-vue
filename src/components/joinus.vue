@@ -12,16 +12,25 @@
       </v-img>
     </v-card>
     <h2 class="mt-2">Why join us?</h2>
-<Editor/>
+  <atEditor v-model="value" editorStyle="height: 320px">
+	<template #toolbar>
+		<span class="ql-formats">
+			<button class="ql-bold"></button>
+			<button class="ql-italic"></button>
+			<button class="ql-underline"></button>
+			<button class="ql-blockquote"></button>
+			<button class="ql-code-block"></button>
+		</span>
+	</template>
+</atEditor>
   </section>
 </template>
 
 <script>
-import atEditor from "./ateditor.vue"
-import Editor from "primevue/editor"
+import atEditor from './ateditor';
 export default {
   components:{
-    Editor
+    atEditor
   },
   name: "joinus",
   computed: {
