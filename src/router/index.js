@@ -8,7 +8,6 @@ import Page404 from '../views/404.vue'
 import Authors from "../components/authors"
 import joinus from "../components/joinus"
 import single from "../views/single_blog"
-import contactUs from "../components/contactUs"
 import community_home from "../views/community/index"
 import becomeauthor from "../components/becomeauthor"
 import createArticle from "../components/create_article"
@@ -28,11 +27,6 @@ const routes = [{
         path: '/become_author',
         name: 'AuthorJoin',
         component: becomeauthor
-    },
-    {
-        path: "/contact",
-        component: contactUs,
-        name: "",
     }, {
         path: '/login',
         name: 'Login',

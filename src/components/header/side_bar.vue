@@ -18,28 +18,15 @@
     </div>
     <hr />
     <b-list-group class="bg-none">
-      <h6>Our Topics</h6>
+      <h6><span class="pi pi-fw pi-book"></span> Our Topics</h6>
       <b-list-group-item v-for="item in items" :key="item.id">
         <sideBar v-bind="item" />
       </b-list-group-item>
     </b-list-group>
     <hr />
     <div>
-      <h6>Contact us now</h6>
-      <div class="card" v-if="token">
-        <p class="p-2">
-          Hey <span class="text-capitalize">{{ user.username }}</span
-          >, want to reach us, enter you message below, we shall receive it and
-          respond back to you.
-        </p>
-        <v-form action="">
-          <v-input
-            v-model="email"
-            label="Enter you email"
-            append-icon="mdi-email"
-          ></v-input>
-        </v-form>
-      </div>
+      <h6><span class="pi pi-fw pi-comments"></span> Contact us now</h6>
+      <ContactUs />
     </div>
     <!-- subscribe -->
   </div>
@@ -48,15 +35,18 @@
 <script>
 import sideBar from "./sideBar_links";
 import axios from "@/axios";
+import ContactUs from "../contactUs.vue";
 export default {
   name: "side_bar",
   components: {
     sideBar,
+    ContactUs,
   },
   data() {
     return {
       items: null,
-      email: "",
+      email: null,
+      body: null,
     };
   },
 

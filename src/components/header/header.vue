@@ -55,11 +55,6 @@ export default {
           to: "/",
         },
         {
-          label: "Contact us",
-          icon: "pi pi-fw pi-comments",
-          to: "/contact",
-        },
-        {
           label: "Community",
           icon: "pi pi-fw pi-user",
           to: "/community",
