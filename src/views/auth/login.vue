@@ -3,13 +3,6 @@
     <center>
       <img src="@/assets/mainlogo.png" class="img-sm" width="200" />
 
-      <h1 class="text-center">
-        Welcome to
-        <span style="cursor: pointer" @click="GoHome" class="text-danger"
-          >eas<span class="text-warning">t</span
-          ><span class="text-success">alks</span></span
-        >
-      </h1>
       <span class="alert">{{ message }}</span>
       <!-- <Steps :model="items" /> -->
       <form class="mx-auto p-shadow-2" @submit.prevent="Login">

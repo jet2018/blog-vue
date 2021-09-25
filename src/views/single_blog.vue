@@ -22,7 +22,7 @@
               :key="index"
               to="#"
               v-bind:class="['text-' + article.blog_color]"
-              v-text="'#' + cat + ' |'"
+              v-text="'#' + cat.category_name + ' |'"
               icon="pi pi-trash" /></span
           >&nbsp;
           <span>
@@ -34,7 +34,7 @@
               to="#"
               dark
             >
-              {{ cat }}
+              <span :class="'pi ' + cat.icon"></span>{{ cat.sub_category_name }}
             </v-chip>
           </span>
           <span class="ml-5">
@@ -152,7 +152,7 @@ export default {
   },
   methods: {
     Login() {
-      this.$router.push({ name: "Login" });
+      this.$router.push({ name: "Login", params: { next: this.$route.path } });
     },
     async getArticle() {
       const response = await axios.get(

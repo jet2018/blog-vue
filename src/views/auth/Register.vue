@@ -1,15 +1,8 @@
 <template>
   <div class="pt-4 h-100 border-none">
     <center>
-      <img src="@/assets/mainlogo.png" class="img-sm" width="100" />
+      <img src="@/assets/mainlogo.png" class="img-sm" width="200" />
 
-      <h1 class="text-center">
-        Welcome to
-        <span style="cursor: pointer" @click="GoHome" class="text-danger"
-          >eas<span class="text-warning">t</span
-          ><span class="text-success">alks</span></span
-        >
-      </h1>
       <!-- <Steps :model="items" /> -->
       <form class="mx-auto p-shadow-2" @submit.prevent="signup">
         <div class="p-5 pt-4 p-d-block mx-auto">

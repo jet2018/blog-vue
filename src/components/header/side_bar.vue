@@ -11,7 +11,7 @@
         ></strong
       >
       <span
-        >It focuses on discussions that majorly solve east african problems in
+        >It focuses on discussions that majorly solve African problems in
         various categories. Incase, there is a missing category below, please
         contact us!</span
       >
@@ -24,6 +24,23 @@
       </b-list-group-item>
     </b-list-group>
     <hr />
+    <div>
+      <h6>Contact us now</h6>
+      <div class="card" v-if="token">
+        <p class="p-2">
+          Hey <span class="text-capitalize">{{ user.username }}</span
+          >, want to reach us, enter you message below, we shall receive it and
+          respond back to you.
+        </p>
+        <v-form action="">
+          <v-input
+            v-model="email"
+            label="Enter you email"
+            append-icon="mdi-email"
+          ></v-input>
+        </v-form>
+      </div>
+    </div>
     <!-- subscribe -->
   </div>
 </template>
@@ -39,7 +56,17 @@ export default {
   data() {
     return {
       items: null,
+      email: "",
     };
+  },
+
+  computed: {
+    user() {
+      return this.$store.state.user || null;
+    },
+    token() {
+      return this.$store.state.access || null;
+    },
   },
 
   methods: {

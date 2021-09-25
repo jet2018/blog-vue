@@ -10,6 +10,8 @@ import joinus from "../components/joinus"
 import single from "../views/single_blog"
 import contactUs from "../components/contactUs"
 import community_home from "../views/community/index"
+import becomeauthor from "../components/becomeauthor"
+import createArticle from "../components/create_article"
 Vue.use(VueRouter)
 
 const routes = [{
@@ -21,6 +23,11 @@ const routes = [{
         path: '/join',
         name: 'Join',
         component: joinus
+    },
+    {
+        path: '/become_author',
+        name: 'AuthorJoin',
+        component: becomeauthor
     },
     {
         path: "/contact",
@@ -35,7 +42,7 @@ const routes = [{
             if (to.name === 'Login' && !token) {
                 next()
             } else {
-                next()
+                window.location.href = "/"
             }
         }
     },
@@ -53,17 +60,22 @@ const routes = [{
         component: Forgot
     },
     {
-        path: 'authors',
+        path: '/authors',
         name: 'Authors',
         component: Authors
     },
     {
-        path: "community",
+        path: "/community",
         name: "Community",
         component: community_home
     },
     {
-        path: "*",
+        path: "/compose",
+        name: "createArticle",
+        component: createArticle
+    },
+    {
+        path: "/*",
         name: "404",
         component: Page404
     }

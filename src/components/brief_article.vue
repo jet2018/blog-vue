@@ -37,7 +37,7 @@
             v-for="cat in category"
             :key="cat"
             to="#"
-            v-text="'#' + cat + ' |'"
+            v-text="'#' + cat.category_name + ' |'"
             icon="pi pi-trash" /></span
         >&nbsp;
         <span>
@@ -56,7 +56,8 @@
             to="#"
             dark
           >
-            {{ cat }}
+            <i :class="'pi ' + cat.icon"></i>
+            {{ cat.sub_category_name }}
           </v-chip>
         </span>
       </div>

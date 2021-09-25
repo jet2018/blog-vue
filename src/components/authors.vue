@@ -30,7 +30,6 @@
               class="text-center mx-auto text-muted"
             ></span>
           </center>
-
           <v-btn block class="mx-auto" color="info">Follow</v-btn>
         </v-card>
       </v-col>

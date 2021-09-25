@@ -8,29 +8,31 @@
         alt=""
         srcset=""
       >
-        <v-btn absolute right bottom dark color="primary">Click to join</v-btn>
+        <v-btn
+          to="/write"
+          v-if="user && user.is_author"
+          absolute
+          right
+          bottom
+          dark
+          color="primary"
+          >Start writing articles</v-btn
+        >
+        <v-btn v-else absolute right bottom dark color="primary"
+          >Click to become an author</v-btn
+        >
       </v-img>
     </v-card>
     <h2 class="mt-2">Why join us?</h2>
-  <atEditor v-model="value" editorStyle="height: 320px">
-	<template #toolbar>
-		<span class="ql-formats">
-			<button class="ql-bold"></button>
-			<button class="ql-italic"></button>
-			<button class="ql-underline"></button>
-			<button class="ql-blockquote"></button>
-			<button class="ql-code-block"></button>
-		</span>
-	</template>
-</atEditor>
+    <Authors />
   </section>
 </template>
 
 <script>
-import atEditor from './ateditor';
+import Authors from "./authors.vue";
 export default {
-  components:{
-    atEditor
+  components: {
+    Authors,
   },
   name: "joinus",
   computed: {

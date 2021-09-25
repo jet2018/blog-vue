@@ -57,12 +57,12 @@ export default {
         {
           label: "Contact us",
           icon: "pi pi-fw pi-comments",
-          to: "contact",
+          to: "/contact",
         },
         {
           label: "Community",
           icon: "pi pi-fw pi-user",
-          to: "community",
+          to: "/community",
           // items: [
           //   {
           //     label: "Authors",
@@ -95,7 +95,7 @@ export default {
         {
           label: "Write an article",
           icon: "pi pi-fw pi-user-edit",
-          to: "add",
+          to: "write",
           visible: () => (this.user && this.user.is_author ? true : false),
         },
       ],
