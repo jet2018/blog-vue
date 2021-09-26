@@ -47,7 +47,7 @@
       <form action="" class="mx-auto">
         <input
           type="first_name"
-          class="form-control mx-2 mb-1"
+          class="form-control mx-2 ml-1 mb-1"
           style="width: 94%"
           v-model="first_name"
           placeholder="First name"
@@ -91,6 +91,11 @@ export default {
     return {
       // img: "/assets/coolbg.png",
     };
+  },
+  computed: {
+    user() {
+      return this.$store.state.user || null;
+    },
   },
 };
 </script>
