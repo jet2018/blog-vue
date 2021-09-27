@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="card-footer text-center">
-        <router-link to="/all" class="">View all</router-link>
+        <router-link to="/sponsors" class="">View all</router-link>
       </div>
     </div>
 
@@ -72,7 +72,7 @@
         </div>
       </div>
       <div class="card-footer text-center">
-        <router-link to="/all" class="">View all</router-link>
+        <router-link to="/authors" class="">View all</router-link>
       </div>
     </div>
 
@@ -108,7 +108,7 @@
         </div>
       </div>
       <div class="card-footer text-center">
-        <router-link to="/all" class="">Go to stories</router-link>
+        <router-link to="/" class="">Go to stories</router-link>
       </div>
     </div>
   </div>

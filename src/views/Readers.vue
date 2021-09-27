@@ -7,46 +7,39 @@
         scale="2"
       ></vue-loaders-ball-beat>
     </center>
-    <v-row v-else>
-      <v-col v-for="author in authors" md="4" :key="author.id">
-        <Author v-bind="author" />
+    <v-row>
+      <v-col v-for="reader in readers" md="4" :key="reader.id">
+        <reader v-bind="reader" />
       </v-col>
     </v-row>
   </div>
 </template>
 <script>
 import axios from "@/axios";
-import Author from "./author";
+import reader from "@/components/reader";
 export default {
-  props: {
-    mini: {
-      type: Boolean,
-      default: false,
-      required: false,
-    },
-  },
-  name: "Authors",
+  name: "FullReaders",
   components: {
-    Author,
+    reader,
   },
   data() {
     return {
-      authors: null,
+      readers: null,
       loading: true,
     };
   },
   methods: {
-    async fetchAuthors() {
+    async fetchReaders() {
       let response = null;
-      response = await axios.get("blog/authors/");
+      response = await axios.get("blog/authors/all-users/");
 
-      this.authors = response.data;
+      this.readers = response.data;
       this.loading = false;
     },
   },
 
   mounted() {
-    this.fetchAuthors();
+    this.fetchReaders();
   },
 };
 </script>

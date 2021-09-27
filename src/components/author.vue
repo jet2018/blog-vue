@@ -1,19 +1,25 @@
 <template>
   <div>
-    <v-card>
+    <v-card height="auto" width="250px">
       <center>
-        <v-avatar max-width="120" size="100" class="m-1 p-1"
+        <v-avatar size="120" class="m-1 p-1"
           ><v-img :src="profile_pik"></v-img
         ></v-avatar>
       </center>
-      <h4
+      <h6
         v-text="current_user"
-        class="text-center text-truncate text-capitalize"
-      ></h4>
+        class="text-center mx-auto text-truncate text-capitalize"
+      ></h6>
       <center>
-        <span v-text="profession" class="text-center text-muted"></span>
+        <span
+          v-text="profession"
+          class="text-center mx-auto text-truncate text-muted"
+        ></span>
         <br />
-        <span v-text="location" class="text-center mx-auto text-muted"></span>
+        <span
+          v-text="location"
+          class="text-center text-truncate mx-auto text-muted"
+        ></span>
       </center>
       <v-btn block class="mx-auto" color="info">Follow</v-btn>
     </v-card>

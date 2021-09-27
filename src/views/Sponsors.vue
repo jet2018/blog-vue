@@ -7,46 +7,39 @@
         scale="2"
       ></vue-loaders-ball-beat>
     </center>
-    <v-row v-else>
-      <v-col v-for="author in authors" md="4" :key="author.id">
-        <Author v-bind="author" />
+    <v-row>
+      <v-col v-for="sponsor in sponsors" md="4" :key="sponsor.id">
+        <sponsor v-bind="sponsor" />
       </v-col>
     </v-row>
   </div>
 </template>
 <script>
 import axios from "@/axios";
-import Author from "./author";
+import sponsor from "@/components/sponsor";
 export default {
-  props: {
-    mini: {
-      type: Boolean,
-      default: false,
-      required: false,
-    },
-  },
-  name: "Authors",
+  name: "FullSponsors",
   components: {
-    Author,
+    sponsor,
   },
   data() {
     return {
-      authors: null,
+      sponsors: null,
       loading: true,
     };
   },
   methods: {
-    async fetchAuthors() {
+    async fetchSponsors() {
       let response = null;
-      response = await axios.get("blog/authors/");
+      response = await axios.get("blog/sponsors/");
 
-      this.authors = response.data;
+      this.sponsors = response.data;
       this.loading = false;
     },
   },
 
   mounted() {
-    this.fetchAuthors();
+    this.fetchSponsors();
   },
 };
 </script>

@@ -18,7 +18,14 @@
           color="primary"
           >Start writing articles</v-btn
         >
-        <v-btn v-else absolute right bottom dark color="primary"
+        <v-btn
+          v-else
+          :to="{ name: 'AuthorJoin' }"
+          absolute
+          right
+          bottom
+          dark
+          color="primary"
           >Click to become an author</v-btn
         >
       </v-img>
@@ -39,6 +46,13 @@ export default {
     user() {
       return JSON.parse(localStorage.getItem("user")) || null;
     },
+  },
+  beforeEnter: (to, from, next) => {
+    if (this.user.is_author) {
+      this.$router.push("/write");
+    } else {
+      next();
+    }
   },
   methods: {
     checkAuth() {

@@ -6,6 +6,8 @@ import Register from '../views/auth/Register.vue'
 import Forgot from '../views/auth/Forgot.vue'
 import Page404 from '../views/404.vue'
 import Authors from "../components/authors"
+import FullReaders from "../views/Readers"
+import FullSponsors from "../views/Sponsors"
 import joinus from "../components/joinus"
 import single from "../views/single_blog"
 import community from "../views/community"
@@ -24,7 +26,7 @@ const routes = [{
         component: joinus
     },
     {
-        path: '/become_author',
+        path: '/author/registion',
         name: 'AuthorJoin',
         component: becomeauthor
     }, {
@@ -57,6 +59,16 @@ const routes = [{
         path: '/authors',
         name: 'Authors',
         component: Authors
+    },
+    {
+        path: '/readers',
+        name: 'Readers',
+        component: FullReaders
+    },
+    {
+        path: '/sponsors',
+        name: 'Sponsors',
+        component: FullSponsors
     },
     {
         path: "/community",
