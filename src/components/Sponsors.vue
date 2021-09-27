@@ -87,12 +87,21 @@
               <Avatar
                 :image="story.introductory_file"
                 size="large"
+                class="ml-1"
                 shape="circle"
               />
             </template>
 
             <h6 class="text-capitalize" v-text="story.title"></h6>
-            <p>{{ story.body | truncate(87) }}</p>
+            <!-- <p v-html="story.body | truncate(87)"></p> -->
+            <!-- <truncate /> -->
+            <truncate
+              clamp=""
+              :length="50"
+              less="."
+              type="html"
+              :text="story.body"
+            ></truncate>
 
             <!-- b-[Optional: add media children here for nesting] -->
           </b-media>
@@ -109,6 +118,7 @@ import axios from "@/axios";
 import Avatar from "primevue/avatar";
 import Button from "primevue/button";
 import images from "@/config";
+import truncate from "vue-truncate-collapsed";
 // import InputText from "primevue/inputtext"
 export default {
   name: "Sponsors",
@@ -116,6 +126,7 @@ export default {
     // InputText
     Avatar,
     Button,
+    truncate,
   },
   data() {
     return {

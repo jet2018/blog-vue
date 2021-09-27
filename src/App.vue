@@ -10,7 +10,11 @@
           <side_bar class="w-100" />
         </v-col>
         <v-col md="8" class="mt-5" lg="6" xl="6" sm="8" xs="12">
-          <router-view />
+          <transition>
+            <keep-alive>
+              <router-view> </router-view>
+            </keep-alive>
+          </transition>
         </v-col>
         <v-col md="4" sm="4" lg="3" xl="3" class="mt-5 d-sm-block d-none">
           <Sponsors />

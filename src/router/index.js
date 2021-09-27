@@ -45,11 +45,11 @@ const routes = [{
         name: 'Register',
         component: Register
     }, {
-        path: '/:slug',
+        path: '/article/:slug',
         name: 'Single',
         component: single
     }, {
-        path: 'forgot',
+        path: '/forgot',
         name: 'Forgot',
         component: Forgot
     },
@@ -69,10 +69,10 @@ const routes = [{
         component: createArticle
     },
     {
-        path: "/*",
-        name: "404",
-        component: Page404
-    }
+        path: '/:catchAll(.*)',
+        component: Page404,
+        name: '404'
+    },
 ]
 
 const router = new VueRouter({

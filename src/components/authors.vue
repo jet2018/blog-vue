@@ -12,7 +12,7 @@
         <v-card>
           <center>
             <v-avatar max-width="100" size="100" class="m-2"
-              ><v-img :src="author.dp"></v-img
+              ><v-img :src="author.profile_pik"></v-img
             ></v-avatar>
           </center>
           <h4
@@ -62,7 +62,6 @@ export default {
 
       this.authors = response.data;
       this.loading = false;
-      console.log(this.authors);
     },
   },
 
