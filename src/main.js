@@ -24,6 +24,16 @@ Vue.use(VueLoaders);
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
+Vue.filter('truncate', function(data, num) {
+    const reqdString = data.split("").slice(0, num).join("");
+    let mylen = data.length
+    let dots = ""
+    if (mylen > num + 3) {
+        dots = '...'
+    }
+    return reqdString + dots;
+})
+
 Vue.use(Toasted, { keepOnHover: true, singleton: true })
 
 Vue.use(PrimeVue, { 'riple': true });

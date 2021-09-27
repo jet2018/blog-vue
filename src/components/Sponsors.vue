@@ -61,11 +61,11 @@
           <b-media>
             <template #aside>
               <!-- <img :src="" width="50" alt="sponsor.sponsor_name"> -->
-              <Avatar :image="author.dp" size="large" shape="circle" />
+              <Avatar :image="author.profile_pik" size="large" shape="circle" />
             </template>
 
             <h6 class="text-capitalize" v-text="author.current_user"></h6>
-            <p v-text="author.short_bio"></p>
+            <p>{{ author.short_bio | truncate(87) }}</p>
 
             <!-- b-[Optional: add media children here for nesting] -->
           </b-media>
@@ -92,7 +92,7 @@
             </template>
 
             <h6 class="text-capitalize" v-text="story.title"></h6>
-            <!-- <p v-text="author.short_bio"></p> -->
+            <p>{{ story.body | truncate(87) }}</p>
 
             <!-- b-[Optional: add media children here for nesting] -->
           </b-media>

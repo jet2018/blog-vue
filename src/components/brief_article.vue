@@ -13,7 +13,7 @@
         <Chip
           v-bind:class="['text-capitalize text-light ', 'bg-' + blog_color]"
           :label="'By ' + full_name"
-          :image="image + poster_image" />
+          :image="poster_image" />
         <span class="float-right">
           Added
           <timeago

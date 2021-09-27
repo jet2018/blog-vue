@@ -2,14 +2,22 @@
   <div>
     <Avatar :icon="'pi pi-fw ' + icon" size="small" shape="circle" />
     <span class="ml-3">{{ category_name }}</span>
-    <span
+    <!-- <span
       v-if="sub_category.length > 0"
       @click="LoadSubMenus"
       class="float-right px-2 text-light border-danger"
       v-bind:class="{ 'bg-secondary': bg_primary, 'bg-info': bg_info }"
       style="border-radius: 50px; cursor: pointer"
       v-text="arrows"
-    ></span>
+    ></span> -->
+    <div v-if="sub_category.length > 0">
+      <v-chip pill v-for="(cat, index) in sub_category" :key="index">
+        <v-avatar left>
+          <i :class="'pi ' + cat.icon"></i>
+        </v-avatar>
+        {{ cat.sub_category_name }}
+      </v-chip>
+    </div>
   </div>
 </template>
 <script>

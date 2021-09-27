@@ -8,14 +8,25 @@
             alt="logo"
             src="@/assets/mainlogo.png"
             height="40"
-            class="p-mr-2"
+            class="p-mr-2 d-none d-sm-inline-block"
+          />
+          <img
+            @click="GoHome"
+            alt="logo"
+            src="@/assets/favicon.png"
+            height="40"
+            class="p-mr-2 d-inline-block d-sm-none"
           />
         </template>
-        <template #end>
-          <InputText placeholder="Search" type="text" />
+        <template #end class="">
+          <InputText
+            placeholder="Search"
+            class="d-sm-inline-block d-none"
+            type="text"
+          />
           &nbsp;
           <router-link
-            class="d-md-inline-block d-none"
+            class="d-sm-inline-block d-none"
             v-if="!user"
             :to="{ name: 'Login' }"
             >Login</router-link
@@ -24,7 +35,7 @@
           <Button
             @click="GoToRegister"
             v-if="!user"
-            class="d-md-inline-block d-none"
+            class="d-sm-inline-block"
             label="Create account"
             :style="{ 'margin-left': '0 .5em' }"
           />
@@ -57,24 +68,7 @@ export default {
         {
           label: "Community",
           icon: "pi pi-fw pi-user",
-          to: "/community",
-          // items: [
-          //   {
-          //     label: "Authors",
-          //     icon: "pi pi-fw pi-user-edit",
-          //     to: "/authors",
-          //   },
-          //   {
-          //     label: "Sponsors",
-          //     icon: "pi pi-fw pi-users",
-          //     to: "/sponsors",
-          //   },
-          //   {
-          //     label: "Join us",
-          //     icon: "pi pi-fw pi-user-plus",
-          //     to: "/join",
-          //   },
-          // ],
+          to: "community",
         },
         {
           label: "Sponsor us",
@@ -90,7 +84,7 @@ export default {
         {
           label: "Write an article",
           icon: "pi pi-fw pi-user-edit",
-          to: "write",
+          to: "/write",
           visible: () => (this.user && this.user.is_author ? true : false),
         },
       ],

@@ -17,7 +17,7 @@
           </center>
           <h4
             v-text="author.current_user"
-            class="mx-auto text-center text-capitalize"
+            class="text-center text-truncate text-capitalize"
           ></h4>
           <center>
             <span
@@ -39,6 +39,13 @@
 <script>
 import axios from "@/axios";
 export default {
+  props: {
+    mini: {
+      type: Boolean,
+      default: false,
+      required: false,
+    },
+  },
   name: "Authors",
   data() {
     return {
@@ -48,7 +55,11 @@ export default {
   },
   methods: {
     async fetchAuthors() {
-      const response = await axios.get("blog/authors/");
+      let response = null;
+      this.mini
+        ? (response = await axios.get("blog/authors/"))
+        : (response = await axios.get("blog/authors/"));
+
       this.authors = response.data;
       this.loading = false;
       console.log(this.authors);

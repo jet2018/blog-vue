@@ -8,7 +8,7 @@ import Page404 from '../views/404.vue'
 import Authors from "../components/authors"
 import joinus from "../components/joinus"
 import single from "../views/single_blog"
-import community_home from "../views/community/index"
+import community from "../views/community"
 import becomeauthor from "../components/becomeauthor"
 import createArticle from "../components/create_article"
 Vue.use(VueRouter)
@@ -61,7 +61,7 @@ const routes = [{
     {
         path: "/community",
         name: "Community",
-        component: community_home
+        component: community
     },
     {
         path: "/compose",

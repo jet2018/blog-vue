@@ -2,7 +2,7 @@
   <div class="d-inline-block">
     <div style="cursor: pointer">
       <v-avatar @click="toggle" v-if="user" size="36px">
-        <img :src="images + user.image" />
+        <img :src="user.image" />
       </v-avatar>
       &nbsp;
       <span @click="toggle" class="text-capitalize">{{ user.username }} </span>
@@ -13,7 +13,7 @@
 
 <script>
 import Menu from "primevue/menu";
-import config from "@/config";
+// import config from "@/config";
 
 export default {
   name: "ImageProfile",
@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      images: config.images,
+      // images: config.specials_images,
       items: [
         {
           label: "Account",
