@@ -1,7 +1,7 @@
 <template>
   <div>
     <h5>Create your author profile.</h5>
-    <form action="">
+    <form action="" @submit="addAuthor">
       <v-textarea
         spellcheck="true"
         v-model="short_bio"
@@ -13,16 +13,6 @@
         name="input-7-4"
         label="Short bio(a brief introduction)."
       ></v-textarea>
-      <v-text-field
-        prepend-icon="mdi-google-maps"
-        clearable
-        light
-        placeholder="Kampala, Uganda"
-        label="Enter your location by city, country"
-        type="text"
-        name="address"
-        v-model="location"
-      ></v-text-field>
 
       <v-text-field
         prepend-icon="mdi-professional-hexagon"
@@ -69,7 +59,7 @@
         v-model="place_of_employment"
       ></v-text-field>
       <!-- stopped here! -->
-      <v-input type="number" v-if="employed"></v-input>
+      <v-input type="number" name="job_duration" v-if="employed"></v-input>
 
       <v-file-input
         :rules="rules"
@@ -80,15 +70,27 @@
         label="Profile image"
       ></v-file-input>
     </form>
+
+    <Button type="submit">Submit for review</Button>
   </div>
 </template>
 <script>
+import axios from "@/axios";
+import Button from "primevue/button";
 export default {
   name: "becomeauthor",
+
+  components: { Button },
   data() {
     return {
       employed: false,
       seeking_job: false,
+      short_bio: "",
+      location: "",
+      dp: "",
+      profession: "",
+      place_of_employment: "",
+      job_duration: "",
       rules: [
         (value) =>
           !value ||
@@ -96,6 +98,36 @@ export default {
           "Image size should be less than 2 MB!",
       ],
     };
+  },
+
+  methods: {
+    async addAuthor() {
+      if (this.employed && this.seeking_job) {
+        this.$toasted.error("You can't be both employed and seeking for a job");
+        return false;
+      } else if (this.seeking_job) {
+        this.place_of_employment = null;
+      }
+      const data = {
+        employed: this.employed,
+        short_bio: this.short_bio,
+        profession: this.profession,
+        place_of_employment: this.place_of_employment,
+        job_duration: this.job_duration,
+        location: this.location,
+        seeking_job: this.seeking_job,
+        image: this.dp,
+      };
+
+      try {
+        const response = await axios.post("blog/authors/add", data, {
+          headers: { Authorisation: `Bearer ${this.$store.state.access}` },
+        });
+        this.$toasted.show(response.data.message, { duration: 6000 });
+      } catch (error) {
+        this.$toasted.error(error, { duration: 6000 });
+      }
+    },
   },
 };
 </script>

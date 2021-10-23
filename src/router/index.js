@@ -13,6 +13,7 @@ import single from "../views/single_blog"
 import community from "../views/community"
 import becomeauthor from "../components/becomeauthor"
 import createArticle from "../components/create_article"
+import categorical from '../components/categorical'
 Vue.use(VueRouter)
 
 const routes = [{
@@ -24,6 +25,11 @@ const routes = [{
         path: '/join',
         name: 'Join',
         component: joinus
+    },
+     {
+        path: '/categorical/:name',
+        name: 'Categorical',
+        component: categorical
     },
     {
         path: '/author/registion',
@@ -90,6 +96,7 @@ const routes = [{
 const router = new VueRouter({
     routes,
     mode: 'history',
+    base: __dirname,
     linkActiveClass: 'active',
     scrollBehavior: () => ({ y: 0 }),
 })

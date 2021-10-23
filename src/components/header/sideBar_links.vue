@@ -1,27 +1,44 @@
 <template>
   <div>
+    <router-link :to="{name:'Categorical', params:{'name':category_name}}">
     <Avatar :icon="'pi pi-fw ' + icon" size="small" shape="circle" />
     <span class="ml-3">{{ category_name }}</span>
-    <!-- <span
-      v-if="sub_category.length > 0"
-      @click="LoadSubMenus"
-      class="float-right px-2 text-light border-danger"
-      v-bind:class="{ 'bg-secondary': bg_primary, 'bg-info': bg_info }"
-      style="border-radius: 50px; cursor: pointer"
-      v-text="arrows"
-    ></span> -->
-    <div v-if="sub_category.length > 0">
-      <v-chip pill v-for="(cat, index) in sub_category" :key="index">
-        <v-avatar left>
-          <i :class="'pi ' + cat.icon"></i>
-        </v-avatar>
-        {{ cat.sub_category_name }}
-      </v-chip>
+</router-link>
+    <v-menu
+      top
+      :offset-x="offset"
+       v-if="sub_category.length > 0"
+    >
+      <template v-slot:activator="{ on, attrs }">
+    <v-btn
+      color="primary"
+      dark
+      x-small
+      right
+      class="float-end"
+      v-bind="attrs"
+      v-on="on"
+    >
+    >>
+   </v-btn>
+    </template>
+
+     <v-list  v-if="sub_category.length > 0">
+        <v-list-item
+          v-for="(item, index) in sub_category"
+          :key="index" :to="{name:'Categorical', params:{'name':item.sub_category_name}}"
+        >
+          <v-list-item-title><v-avatar left>
+            <i :class="'pi ' + item.icon"></i>
+          </v-avatar>
+        {{ item.sub_category_name }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+</v-menu>
     </div>
-  </div>
-</template>
-<script>
-import Avatar from "primevue/avatar";
+  </template>
+  <script>
+  import Avatar from "primevue/avatar";
 // import AvatarGroup from 'primevue/avatargroup';
 export default {
   name: "sideBar",
