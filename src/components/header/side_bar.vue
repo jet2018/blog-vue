@@ -26,7 +26,23 @@
     <hr />
     <div>
       <h6><span class="pi pi-fw pi-comments"></span> Contact us now</h6>
-      <ContactUs />
+      <div class="card">
+        <p class="px-2 pt-2" v-if="user">
+          Hey <span class="text-capitalize">{{ user.username }}</span
+          >, want to reach us, enter you message below, we shall receive it and
+          respond back to you.
+        </p>
+        <p class="px-2 pt-2" v-else>
+          Hey, got something you want to share with us? Finish up the form below
+          to send us your message.
+        </p>
+        <Button
+          @click="GoToContactUs"
+          class="btn-user mb-1 mx-2 text-center px-auto"
+          iconPos="right"
+          >Click to contact us now</Button
+        >
+      </div>
     </div>
     <!-- subscribe -->
   </div>
@@ -35,12 +51,14 @@
 <script>
 import sideBar from "./sideBar_links";
 import axios from "@/axios";
-import ContactUs from "../contactUs.vue";
+import Button from "primevue/button";
+// import ContactUs from "../contactUs.vue";
 export default {
   name: "side_bar",
   components: {
     sideBar,
-    ContactUs,
+    Button,
+    // ContactUs,
   },
   data() {
     return {
@@ -60,6 +78,9 @@ export default {
   },
 
   methods: {
+    GoToContactUs() {
+      return this.$router.push({ name: "Contact" });
+    },
     async fetchCategories() {
       const response = await axios.get("blog/categories/");
       this.items = response.data;

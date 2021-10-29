@@ -1,7 +1,7 @@
 <template>
   <div>
     <h5>Create your author profile.</h5>
-    <form action="" @submit="addAuthor">
+    <form v-on:submit.prevent="addAuthor">
       <v-textarea
         spellcheck="true"
         v-model="short_bio"
@@ -64,14 +64,16 @@
       <v-file-input
         :rules="rules"
         v-model="dp"
+        chips
+        dense
+        clearable
         accept=".png, .jpeg, .jpg"
         placeholder="Pick an image"
         prepend-icon="mdi-camera"
         label="Profile image"
       ></v-file-input>
+      <Button type="submit" role="submit">Submit for review</Button>
     </form>
-
-    <Button type="submit">Submit for review</Button>
   </div>
 </template>
 <script>
@@ -102,6 +104,7 @@ export default {
 
   methods: {
     async addAuthor() {
+      alert("am here");
       if (this.employed && this.seeking_job) {
         this.$toasted.error("You can't be both employed and seeking for a job");
         return false;

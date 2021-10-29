@@ -11,6 +11,7 @@ import FullSponsors from "../views/Sponsors"
 import joinus from "../components/joinus"
 import single from "../views/single_blog"
 import community from "../views/community"
+import ContactUs from "../components/contactUs"
 import becomeauthor from "../components/becomeauthor"
 import createArticle from "../components/create_article"
 import categorical from '../components/categorical'
@@ -26,7 +27,7 @@ const routes = [{
         name: 'Join',
         component: joinus
     },
-     {
+    {
         path: '/categorical/:name',
         name: 'Categorical',
         component: categorical
@@ -80,6 +81,11 @@ const routes = [{
         path: "/community",
         name: "Community",
         component: community
+    },
+    {
+        path: "/contact",
+        name: "Contact",
+        component: ContactUs
     },
     {
         path: "/compose",
