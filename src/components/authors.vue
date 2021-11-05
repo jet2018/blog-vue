@@ -9,7 +9,7 @@
     </center>
     <v-row v-else>
       <v-col v-for="author in authors" md="4" :key="author.id">
-        <Author v-bind="author" />
+        <Author v-bind="author" v-on:resetFollowing="RefetchAuthors" />
       </v-col>
     </v-row>
   </div>
@@ -42,6 +42,10 @@ export default {
 
       this.authors = response.data;
       this.loading = false;
+    },
+
+    RefetchAuthors() {
+      this.fetchAuthors();
     },
   },
 

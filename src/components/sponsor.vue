@@ -1,14 +1,6 @@
 <template>
   <div class="border border-info p-2">
-    <v-card
-      height="auto"
-      width="250px"
-      :img="sponsor_logo"
-      hover
-      elevation="12"
-      max-height="100"
-      min-height="100"
-    >
+    <v-card height="100px" width="250" :img="sponsor_logo" hover elevation="12">
     </v-card>
     <h6 class="text-center mt-1">{{ sponsor_name }}</h6>
 

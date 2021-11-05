@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card height="auto" width="250px">
+    <v-card height="200" width="250px">
       <center>
         <v-avatar size="120" class="m-1 p-1"
           ><v-img :src="profile_pik"></v-img
@@ -8,12 +8,12 @@
       </center>
       <h6
         v-text="first_name + ' ' + last_name + '(' + username + ')'"
-        class="text-center mx-auto text-truncate text-capitalize"
+        class="text-center px-1 text-truncate text-capitalize"
       ></h6>
       <center>
         <span
           v-text="email"
-          class="text-center mx-auto text-truncate text-muted"
+          class="text-center px-1 text-truncate text-muted"
         ></span>
       </center>
       <!-- <v-btn block class="mx-auto" color="info">Follow</v-btn> -->

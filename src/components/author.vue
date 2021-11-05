@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card height="auto" width="250px">
+    <v-card height="auto" width="300">
       <center>
         <v-avatar size="120" class="m-1 p-1"
           ><v-img :src="profile_pik"></v-img
@@ -8,25 +8,32 @@
       </center>
       <h6
         v-text="current_user"
-        class="text-center mx-auto text-truncate text-capitalize"
+        class="text-center px-1 text-truncate text-capitalize"
       ></h6>
       <center>
         <span
           v-text="profession"
-          class="text-center mx-auto text-truncate text-muted"
+          class="text-center px-1 text-truncate text-muted"
         ></span>
         <br />
         <span
           v-text="location"
-          class="text-center text-truncate mx-auto text-muted"
+          class="text-center text-truncate px-1 text-muted"
         ></span>
       </center>
-      <v-btn block class="mx-auto" color="info">Follow</v-btn>
+      <Follow
+        class="bg-info"
+        v-bind:id="id"
+        v-on:followedcallback="resetFollowers"
+        v-bind:followers="followers"
+      />
     </v-card>
   </div>
 </template>
 <script>
+import Follow from "./FollowButton";
 export default {
+  components: { Follow },
   props: {
     profile_pik: {
       type: String,
@@ -48,7 +55,21 @@ export default {
       default: null,
       required: null,
     },
+    id: {
+      type: Number,
+      default: null,
+      required: true,
+    },
+    followers: {
+      type: Array,
+      required: false,
+    },
   },
   name: "Author",
+  methods: {
+    resetFollowers(follow) {
+      this.$emit("resetFollowing", follow);
+    },
+  },
 };
 </script>

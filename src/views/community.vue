@@ -12,7 +12,7 @@
     <div>
       <v-row>
         <v-col v-for="author in authors" md="4" :key="author.id">
-          <Author v-bind="author" />
+          <Author v-bind="author" v-on:resetFollowing="RefetchAuthors" />
         </v-col>
       </v-row>
     </div>
@@ -85,7 +85,11 @@ export default {
       this.readers = response_readers.data;
       this.sponsors = response_sponsors.data;
       // this.loading = false;
-      console.log(this.authors);
+    },
+
+    async RefetchAuthors() {
+      const response = await axios.get("blog/community/top/authors");
+      this.authors = response.data;
     },
   },
 
