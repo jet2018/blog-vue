@@ -2,57 +2,55 @@
   <div>
     <div>
       <Menubar class="static-top" :model="items">
+        <template #item="{ item }">
+          <router-link :to="item.to" custom v-slot="{ route }">
+            {{ route.fullPath }}
+          </router-link>
+        </template>
 
-       <template #item="{item}">
-        <router-link :to="item.to" custom v-slot="{route}">
-        {{route.fullPath}}
-        </router-link>
-      </template>
-
-      <template #start>
-        <img
-        @click="GoHome"
-        alt="logo"
-        src="@/assets/mainlogo.png"
-        height="40"
-        class="p-mr-2 d-none d-sm-inline-block"
-        />
-        <img
-        @click="GoHome"
-        alt="logo"
-        src="@/assets/favicon.png"
-        height="40"
-        class="p-mr-2 d-inline-block d-sm-none"
-        />
-
-      </template>
-      <template #end class="">
-        <InputText
-        placeholder="Search"
-        class="d-sm-inline-block d-none"
-        type="text"
-        />
-        &nbsp;
-        <router-link
-        class="d-sm-inline-block d-none"
-        v-if="!user"
-        :to="{ name: 'Login' }"
-        >Login</router-link
-        >
-        &nbsp;
-        <Button
-        @click="GoToRegister"
-        v-if="!user"
-        class="d-sm-inline-block"
-        label="Create account"
-        :style="{ 'margin-left': '0 .5em' }"
-        />
-        <!-- {{ images }} -->
-        <ImageProfile v-if="user" />
-      </template>
-    </Menubar>
+        <template #start>
+          <img
+            @click="GoHome"
+            alt="logo"
+            src="@/assets/mainlogo.png"
+            height="40"
+            class="p-mr-2 d-none d-sm-inline-block"
+          />
+          <img
+            @click="GoHome"
+            alt="logo"
+            src="@/assets/favicon.png"
+            height="40"
+            class="p-mr-2 d-inline-block d-sm-none"
+          />
+        </template>
+        <template #end class="">
+          <InputText
+            placeholder="Search"
+            class="d-sm-inline-block d-none"
+            type="text"
+          />
+          &nbsp;
+          <router-link
+            class="d-sm-inline-block d-none"
+            v-if="!user"
+            :to="{ name: 'Login' }"
+            >Login</router-link
+          >
+          &nbsp;
+          <Button
+            @click="GoToRegister"
+            v-if="!user"
+            class="d-sm-inline-block"
+            label="Create account"
+            :style="{ 'margin-left': '0 .5em' }"
+          />
+          <!-- {{ images }} -->
+          <ImageProfile v-if="user" />
+        </template>
+      </Menubar>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -69,32 +67,32 @@ export default {
     return {
       menu: false,
       items: [
-      {
-        label: "Home",
-        to: "/",
-      },
-      {
-        label: "Community",
-        icon: "pi pi-fw pi-user",
-        to: "community",
-      },
-      {
-        label: "Sponsor us",
-        icon: "pi pi-fw pi-euro",
-        to: "sponsor",
-      },
-      {
-        label: "Become an author",
-        icon: "pi pi-fw pi-user-edit",
-        to: "/join",
-        visible: () => (this.user && this.user.is_author ? false : true),
-      },
-      {
-        label: "Write an article",
-        icon: "pi pi-fw pi-user-edit",
-        to: "/write",
-        visible: () => (this.user && this.user.is_author ? true : false),
-      },
+        {
+          label: "Home",
+          to: "/",
+        },
+        {
+          label: "Community",
+          icon: "pi pi-fw pi-user",
+          to: "community",
+        },
+        {
+          label: "Sponsor us",
+          icon: "pi pi-fw pi-euro",
+          to: "sponsor",
+        },
+        {
+          label: "Become an author",
+          icon: "pi pi-fw pi-user-edit",
+          to: "/join",
+          visible: () => (this.user && this.user.is_author ? false : true),
+        },
+        {
+          label: "Write an article",
+          icon: "pi pi-fw pi-user-edit",
+          to: "/compose",
+          visible: () => (this.user && this.user.is_author ? true : false),
+        },
       ],
     };
   },
@@ -102,7 +100,6 @@ export default {
     user() {
       return JSON.parse(localStorage.getItem("user"));
     },
-
   },
   components: {
     Menubar,
@@ -113,9 +110,9 @@ export default {
   },
 
   methods: {
-     my_navigation(route){
-      alert(route)
-      return
+    my_navigation(route) {
+      alert(route);
+      return;
     },
     GoToRegister() {
       this.$router.push({ name: "Register" });

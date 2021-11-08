@@ -9,7 +9,7 @@
         srcset=""
       >
         <v-btn
-          :to="{ name: 'Join' }"
+          :to="{ name: 'createArticle' }"
           v-if="user && user.is_author"
           absolute
           right

@@ -13,6 +13,8 @@ import "primeicons/primeicons.css"
 import VueTimeago from 'vue-timeago'
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
 import Toasted from 'vue-toasted';
+import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -23,6 +25,8 @@ import VueLoaders from 'vue-loaders';
 Vue.use(VueLoaders);
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
+Vue.use(mavonEditor)
+    //mavon-editor
 
 Vue.filter('truncate', function(data, num) {
     const reqdString = data.split("").slice(0, num).join("");
