@@ -6,6 +6,7 @@
           v-if="introductory_file"
           :src="introductory_file"
           width="150"
+          height="150"
           alt="placeholder"
         ></b-img>
       </template>
@@ -13,19 +14,34 @@
         <Chip
           v-bind:class="['text-capitalize text-light ', 'bg-' + blog_color]"
           :label="'By ' + full_name"
-          :image="poster_image" />
-        <span class="float-right">
+          :image="poster_image"
+        />
+        <span class="float-end">
           Added
           <timeago
             :datetime="posted_on"
             class="pr-1"
             :auto-update="60"
           ></timeago>
-          <Button
-            class="rounded float-end"
-            v-bind:class="'bg-' + blog_color"
-            icon="pi pi-bookmark" /></span
-      ></small>
+          <SaveForLater
+            v-if="!bookmarked"
+            v-bind:color="blog_color"
+            v-bind:slug="slug"
+            v-on:saved="saved"
+          />
+          <v-btn
+            v-else
+            :color="blog_color"
+            small
+            fab
+            elevation="12"
+            title="Article saved"
+            right
+            class="float-end"
+            ><v-icon>mdi-check</v-icon></v-btn
+          >
+        </span></small
+      >
       <router-link
         :to="{ name: 'Single', params: { slug: slug } }"
         v-bind:class="['mt-0 mb-1 h5 d-block text-primary']"
@@ -41,13 +57,6 @@
             icon="pi pi-trash" /></span
         >&nbsp;
         <span>
-          <!-- <router-link
-            class="text-sm text-info"
-            :key="cat"
-            to="#"
-            v-html="'##' + cat + '&nbsp;'"
-            icon="pi pi-trash"
-          /> -->
           <v-chip
             x-small
             v-for="cat in sub_category"
@@ -63,50 +72,53 @@
       </div>
 
       <!-- to be hidden to unauthenticated users -->
-      <v-row cols="12">
-        <v-col lg="12">
-          <span class="p-buttonset">
-            <Button
-              @click="upVote"
-              :label="total_downvotes"
-              class="p-button-text"
-              icon="pi pi-thumbs-down"
-            />
-            <Button
-              @click="downVote"
-              :label="total_upvotes"
-              class="p-button-text"
-              icon="pi pi-heart"
-            />
+      <div class="ml-2">
+        <LikeButton
+          class="d-inline mr-1"
+          v-bind:upvotes="upvotes"
+          v-bind:total_likes="total_upvotes"
+          v-bind:slug="slug"
+          v-on:changelikes="ChangeLikes"
+        />
 
-            <Button
-              v-if="total_comments > 0"
-              :to="{ name: 'Comment' }"
-              :label="total_comments + ' comments'"
-              class="p-button-text"
-              icon="pi
-            pi-comments"
-            />
-            <Button
-              :to="{ name: 'Comment' }"
-              v-else
-              label="Comment"
-              class="p-button-text"
-              icon="pi pi-comments"
-            />
-          </span>
-        </v-col>
-      </v-row>
+        <DeslikeButton
+          class="d-inline"
+          v-bind:downvotes="downvotes"
+          v-bind:total_likes="total_downvotes"
+          v-bind:slug="slug"
+          v-on:changelikes="ChangeLikes"
+        />
+        <span v-if="total_comments > 0">{{ total_comments }} commented</span>
+      </div>
     </b-media>
   </div>
 </template>
 <script>
 // import truncate from 'vue-truncate-collapsed';
 import Chip from "primevue/chip";
-import Button from "primevue/button";
+// import Button from "primevue/button";
 import config from "@/config";
-import axios from "@/axios";
+// import commentField from "@/components/commentField";
+import LikeButton from "@/components/LikeButton";
+import DeslikeButton from "@/components/DeslikeButton";
+import SaveForLater from "@/components/SaveForLater";
 export default {
+  name: "briefArticle",
+  components: {
+    // truncate,
+    // Button,
+    Chip,
+    DeslikeButton,
+    LikeButton,
+    SaveForLater,
+  },
+  data() {
+    return {
+      image: config.images,
+      bookmarked: false,
+    };
+  },
+
   computed: {
     user() {
       return this.$store.state.user || null;
@@ -114,40 +126,26 @@ export default {
     token() {
       return this.$store.state.access || null;
     },
+  }, // end of computed
+
+  mounted() {
+    this.watchBookmark();
   },
-
   methods: {
-    async upVote() {
-      if (!this.user) {
-        return this.$router.push(
-          "login?next=" + this.$router.currentRoute.path
-        );
-      }
-
-      let tok = this.token ? this.token : localStorage.getItem("access");
-      const response = await axios.post("blog/upvote/" + this.slug + "/", {
-        headers: {
-          Authorization: `Bearer ${tok}`,
-        },
-      });
-
-      this.total_upvotes = response.data.total_upvotes;
-      this.$toasted.show("You upvoted this article successfully", {
-        duration: 5000,
-      });
+    async ChangeLikes(params) {
+      await this.$emit("rechangelikes", params);
+    },
+    watchBookmark() {
+      return this.bookmarks.includes(this.user.id)
+        ? (this.bookmarked = true)
+        : (this.bookmarked = false);
+    },
+    saved(params) {
+      alert(this.params);
+      return (this.bookmarked = params);
     },
   },
-  components: {
-    // truncate,
-    Button,
-    Chip,
-  },
-  data() {
-    return {
-      image: config.images,
-    };
-  },
-  name: "briefArticle",
+
   props: {
     blog_color: {
       type: String, // String, Number, Boolean, Function, Object, Array
@@ -155,6 +153,21 @@ export default {
       default: null,
     },
     total_upvotes: {
+      type: Number, // String, Number, Boolean, Function, Object, Array
+      required: true,
+      default: 0,
+    },
+    bookmarks: {
+      type: Array, // String, Number, Boolean, Function, Object, Array
+      required: true,
+      default: null,
+    },
+    downvotes: {
+      type: Number, // String, Number, Boolean, Function, Object, Array
+      required: true,
+      default: 0,
+    },
+    upvotes: {
       type: Number, // String, Number, Boolean, Function, Object, Array
       required: true,
       default: 0,

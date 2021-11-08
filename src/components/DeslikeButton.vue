@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-btn :color="color" @click="like">
-      <v-icon left> mdi-thumb-up </v-icon>
+      <v-icon left> mdi-thumb-down </v-icon>
       {{ total_likes }}
     </v-btn>
   </div>
@@ -9,14 +9,14 @@
 <script>
 import axios from "@/axios";
 export default {
-  name: "LikeButton",
+  name: "DeslikeButton",
 
   props: {
     total_likes: {
       type: Number,
       default: 0,
     },
-    upvotes: {
+    downvotes: {
       type: Array,
       default: null,
     },
@@ -34,14 +34,14 @@ export default {
       return this.$store.state.user || null;
     },
     color() {
-      return this.upvotes.includes(this.user.user_id) ? "dark" : "success";
+      return this.downvotes.includes(this.user.user_id) ? "dark" : "success";
     },
   },
 
   methods: {
     async like() {
       try {
-        const response = await axios.get(`blog/${this.slug}/like`, {
+        const response = await axios.get(`blog/${this.slug}/unlike`, {
           headers: {
             Authorization: `Bearer ${this.token}`,
           },

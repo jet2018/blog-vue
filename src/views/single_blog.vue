@@ -14,7 +14,7 @@
           :image="image + article.poster_image"
         />
       </v-card-text>
-      <v-card-tools>
+      <v-card-actions>
         <div>
           <span
             ><router-link
@@ -48,28 +48,29 @@
             </small>
           </span>
         </div>
-      </v-card-tools>
+      </v-card-actions>
     </v-img>
 
-    <v-card-subtitle class="pb-0">
-      <Button
-        @click="upVote"
-        :label="article.total_downvotes"
-        class="p-button-text"
-        icon="pi pi-thumbs-up"
-      />
-      <Button
-        @click="upVote"
-        :label="article.total_downvotes"
-        class="p-button-text"
-        icon="pi pi-heart"
-      />
-      <Button
-        @click="addTopComment = !addTopComment"
-        label="Add a comment"
-        class="p-button-text btn-sm float-end"
-        icon="pi pi-comment"
-      />
+    <v-card-subtitle class="mb-2">
+      <v-row>
+        <LikeButton
+          v-bind:upvotes="article.upvotes"
+          v-bind:total_likes="article.total_upvotes"
+          v-bind:slug="article.slug"
+          v-on:changelikes="ChangeLikes"
+        />
+        &nbsp;
+        <DeslikeButton
+          v-bind:downvotes="article.downvotes"
+          v-bind:total_likes="article.total_downvotes"
+          v-bind:slug="article.slug"
+          v-on:changelikes="ChangeLikes"
+        />
+        <v-spacer></v-spacer>
+        <v-btn @click="addTopComment = !addTopComment" class="">
+          <v-icon left>mdi-comment</v-icon> Add a comment</v-btn
+        >
+      </v-row>
     </v-card-subtitle>
     <v-card-text v-show="addTopComment">
       <div v-if="is_authenticated">
@@ -136,7 +137,11 @@ import config from "@/config";
 import Chip from "primevue/chip";
 import Button from "primevue/button";
 import commentField from "@/components/commentField";
+import LikeButton from "@/components/LikeButton";
+import DeslikeButton from "@/components/DeslikeButton";
 export default {
+  name: "single",
+
   data() {
     return {
       article: null,
@@ -144,34 +149,39 @@ export default {
       image: config.images,
     };
   },
+
   components: {
     // truncate,
     commentField,
     Chip,
     Button,
+    LikeButton,
+    DeslikeButton,
   },
-  methods: {
-    Login() {
-      this.$router.push({ name: "Login", params: { next: this.$route.path } });
-    },
-    async getArticle() {
-      const response = await axios.get(
-        "blog/article/" + this.$route.params.slug + "/"
-      );
-      this.article = response.data;
-      console.log(this.article);
-    },
 
-    async upVote() {
-      alert("am here");
-    },
-  },
-  name: "single",
   computed: {
     is_authenticated() {
       return this.$store.state.access ? true : false;
     },
   },
+
+  methods: {
+    Login() {
+      this.$router.push({ name: "Login", params: { next: this.$route.path } });
+    },
+
+    async getArticle() {
+      const response = await axios.get(
+        "blog/article/" + this.$route.params.slug + "/"
+      );
+      this.article = response.data;
+    },
+
+    async ChangeLikes() {
+      this.getArticle();
+    },
+  },
+
   mounted() {
     this.getArticle();
   },

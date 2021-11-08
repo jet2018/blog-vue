@@ -13,6 +13,7 @@
         v-for="article in articles"
         :key="article.id"
         v-bind="article"
+        v-on:rechangelikes="rechangeLikes"
       />
     </div>
   </div>
@@ -39,6 +40,10 @@ export default {
       const response = await axios.get("blog/articles");
       this.articles = response.data;
       this.loading = false;
+    },
+
+    async rechangeLikes() {
+      await this.getArticles();
     },
   },
 
