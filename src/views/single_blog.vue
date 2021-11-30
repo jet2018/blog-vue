@@ -1,55 +1,53 @@
 <template>
   <v-card class="container">
     <!-- {{ article }} -->
-    <h5 v-bind:class="['text-' + article.blog_color]">{{ article.title }}</h5>
+    <h3
+      v-bind:class="['d-inline-block  text-' + article.blog_color]"
+      v-html="article.title"
+    ></h3>
+    <!--<Chip
+        v-bind:class="['text-capitalize text-light bg-' + article.blog_color]"
+        :label="'By ' + article.full_name + ': ' + article.title"
+        :image="article.poster_image"
+      />-->
+    <div>
+      <span
+        ><router-link
+          v-for="(cat, index) in article.category"
+          :key="index"
+          to="#"
+          v-bind:class="['text-' + article.blog_color]"
+          v-text="'#' + cat.category_name + ' |'"
+          icon="pi pi-trash" /></span
+      >&nbsp;
+      <span>
+        <v-chip
+          x-small
+          v-for="(cat, index) in article.sub_category"
+          :key="index"
+          :color="'bg-' + article.blog_color"
+          to="#"
+          dark
+        >
+          <span :class="'pi ' + cat.icon"></span>{{ cat.sub_category_name }}
+        </v-chip>
+      </span>
+      <span class="ml-5">
+        <small class="text-light text-sm float-end">
+          <timeago
+            v-bind:class="['text-' + article.blog_color]"
+            :datetime="article.posted_on"
+            class="pr-1"
+            :auto-update="60"
+          ></timeago>
+        </small>
+      </span>
+    </div>
     <v-img
       class="white--text align-end"
       height="200px"
       :src="article.introductory_file"
-    >
-      <v-card-text>
-        <Chip
-          v-bind:class="['text-capitalize text-light bg-' + article.blog_color]"
-          :label="'By ' + article.full_name"
-          :image="image + article.poster_image"
-        />
-      </v-card-text>
-      <v-card-actions>
-        <div>
-          <span
-            ><router-link
-              v-for="(cat, index) in article.category"
-              :key="index"
-              to="#"
-              v-bind:class="['text-' + article.blog_color]"
-              v-text="'#' + cat.category_name + ' |'"
-              icon="pi pi-trash" /></span
-          >&nbsp;
-          <span>
-            <v-chip
-              x-small
-              v-for="(cat, index) in article.sub_category"
-              :key="index"
-              :color="'bg-' + article.blog_color"
-              to="#"
-              dark
-            >
-              <span :class="'pi ' + cat.icon"></span>{{ cat.sub_category_name }}
-            </v-chip>
-          </span>
-          <span class="ml-5">
-            <small class="text-light text-sm">
-              <timeago
-                v-bind:class="['text-' + article.blog_color]"
-                :datetime="article.posted_on"
-                class="pr-1"
-                :auto-update="60"
-              ></timeago>
-            </small>
-          </span>
-        </div>
-      </v-card-actions>
-    </v-img>
+    />
 
     <v-card-subtitle class="mb-2">
       <v-row>
@@ -97,10 +95,9 @@
         </v-card>
       </div>
     </v-card-text>
-    <v-card-text
-      class="text--primary container"
-      v-html="article.body"
-    ></v-card-text>
+    <v-card-text class="text--primary container"
+      ><vue-markdown html="true">{{ article.body }}</vue-markdown>
+    </v-card-text>
     <!-- 
     <v-card-actions>
      
@@ -134,11 +131,12 @@
 <script>
 import axios from "@/axios";
 import config from "@/config";
-import Chip from "primevue/chip";
+// import Chip from "primevue/chip";
 import Button from "primevue/button";
 import commentField from "@/components/commentField";
 import LikeButton from "@/components/LikeButton";
 import DeslikeButton from "@/components/DeslikeButton";
+import VueMarkdown from "vue-markdown";
 export default {
   name: "single",
 
@@ -151,9 +149,9 @@ export default {
   },
 
   components: {
-    // truncate,
+    VueMarkdown,
     commentField,
-    Chip,
+    // Chip,
     Button,
     LikeButton,
     DeslikeButton,
@@ -176,10 +174,6 @@ export default {
       );
       this.article = response.data;
     },
-
-    async ChangeLikes() {
-      this.getArticle();
-    },
   },
 
   mounted() {
@@ -188,8 +182,3 @@ export default {
 };
 </script>
 
-<style scoped>
-.image {
-  max-width: 100% !important;
-}
-</style>

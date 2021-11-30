@@ -22,6 +22,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vue-loaders/dist/vue-loaders.css';
 import VueLoaders from 'vue-loaders';
 
+
 Vue.use(VueLoaders);
 Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)

@@ -135,6 +135,9 @@ export default {
     async ChangeLikes(params) {
       await this.$emit("rechangelikes", params);
     },
+    // markDownHtml(){
+    //   return marked()
+    // },
     watchBookmark() {
       return this.bookmarks.includes(this.user.id)
         ? (this.bookmarked = true)
