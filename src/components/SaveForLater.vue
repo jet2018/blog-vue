@@ -49,7 +49,6 @@ export default {
             type: "success",
             duration: 5000,
           });
-          console.log(response.data);
           this.$emit("saved", response.data.bookmarked);
         } else {
           this.$toasted.show(response.data.error, {

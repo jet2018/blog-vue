@@ -74,12 +74,12 @@ export default {
         {
           label: "Community",
           icon: "pi pi-fw pi-user",
-          to: "community",
+          to: "/community",
         },
         {
           label: "Sponsor us",
           icon: "pi pi-fw pi-euro",
-          to: "sponsor",
+          to: "/sponsor",
         },
         {
           label: "Become an author",

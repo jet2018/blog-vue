@@ -55,8 +55,10 @@
         ></v-text-field>
         <mavon-editor
           v-model="body"
+          :toolbars="toolbars"
           placeholder="Start writing your article body..."
           language="en"
+          html="true"
           codeStyle="dracula"
           spellcheck="true"
           style="min-height: 500px"
@@ -125,6 +127,7 @@
             color="primary"
             bottom
             right
+            @click="saveDraft"
             >Save as draft</v-btn
           >
           <v-btn type="button" @click="resetForm" bottom left>Reset</v-btn>
@@ -144,6 +147,7 @@ export default {
       body: "",
       upload_image_url: "",
       upload_image_link: null,
+      is_draft: false,
       items: [
         { text: "Warning or caution", value: "r" },
         { text: "Informative or educative", value: "i" },
@@ -156,6 +160,42 @@ export default {
       categories: [],
       sub_categories: [],
       sub_categories_selected: [],
+
+      // editor toolbar
+      toolbars: {
+        bold: true,
+        italic: true,
+        header: true,
+        underline: true,
+        strikethrough: true,
+        mark: true,
+        superscript: true,
+        subscript: true,
+        quote: true,
+        ol: true,
+        ul: true,
+        link: true,
+        code: true,
+        table: true,
+        fullscreen: true,
+        readmodel: true,
+        htmlcode: true,
+        help: true,
+        /* 1.3.5 */
+        undo: true,
+        redo: true,
+        trash: true,
+        save: true,
+        /* 1.4.2 */
+        navigation: true,
+        /* 2.1.8 */
+        alignleft: true,
+        aligncenter: true,
+        alignright: true,
+        /* 2.2.1 */
+        subfield: true,
+        preview: true,
+      },
     };
   },
 
@@ -192,8 +232,10 @@ export default {
         fd.append("body", this.body);
         fd.append("blog_color", this.blog_color);
         fd.append("categories", this.categories);
-        fd.append("schedule_to", this.schedule_to);
+        fd.append("schedule_to", this.schedule_to ? this.schedule_to : 0);
+        alert(this.schedule_to);
         fd.append("sub_categories", this.sub_categories_selected);
+        fd.append("is_draft", this.is_draft);
         console.log(fd);
         axios
           .post("blog/create/", fd, {
@@ -203,10 +245,14 @@ export default {
           })
           .then((response) => {
             console.log(response);
-            this.$toasted.success("Article created successfully", {
+            this.$toasted.success(response.data.message, {
               duration: 5000,
             });
-            this.$router.push("/");
+            if (response.data.blog.is_draft) {
+              this.$router.push("/");
+            } else {
+              this.$router.push("/");
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -214,9 +260,14 @@ export default {
       }
     },
 
+    saveDraft() {
+      this.is_draft = true;
+      this.createArticle();
+    },
+
     resetForm() {
       let cf = confirm(
-        "You are about all the content in your form, Are you sure you want to do this?"
+        "You are about to lose all the content in your form, Are you sure you want to do this?"
       );
       if (cf) {
         this.title = "";
@@ -225,7 +276,7 @@ export default {
         this.categories = [];
         this.sub_categories_selected = [];
         this.blog_color = "";
-        this.schedule_to = null;
+        this.schedule_to = 0;
       }
     },
 

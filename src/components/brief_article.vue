@@ -14,8 +14,7 @@
         <Chip
           v-bind:class="['text-capitalize text-light ', 'bg-' + blog_color]"
           :label="'By ' + full_name"
-          :image="poster_image"
-        />
+          :image="poster_image" />
         <span class="float-end">
           Added
           <timeago
@@ -23,14 +22,8 @@
             class="pr-1"
             :auto-update="60"
           ></timeago>
-          <SaveForLater
-            v-if="!bookmarked"
-            v-bind:color="blog_color"
-            v-bind:slug="slug"
-            v-on:saved="saved"
-          />
           <v-btn
-            v-else
+            v-if="bookmarked"
             :color="blog_color"
             small
             fab
@@ -40,8 +33,13 @@
             class="float-end"
             ><v-icon>mdi-check</v-icon></v-btn
           >
-        </span></small
-      >
+          <SaveForLater
+            v-else
+            v-bind:color="blog_color"
+            v-bind:slug="slug"
+            v-on:saved="saved"
+          /> </span
+      ></small>
       <router-link
         :to="{ name: 'Single', params: { slug: slug } }"
         v-bind:class="['mt-0 mb-1 h5 d-block text-primary']"
@@ -115,7 +113,7 @@ export default {
   data() {
     return {
       image: config.images,
-      bookmarked: false,
+      bookmarked: () => this.bookmarks.includes(this.user.id),
     };
   },
 
@@ -128,9 +126,6 @@ export default {
     },
   }, // end of computed
 
-  mounted() {
-    this.watchBookmark();
-  },
   methods: {
     async ChangeLikes(params) {
       await this.$emit("rechangelikes", params);
@@ -138,16 +133,19 @@ export default {
     // markDownHtml(){
     //   return marked()
     // },
-    watchBookmark() {
-      return this.bookmarks.includes(this.user.id)
-        ? (this.bookmarked = true)
-        : (this.bookmarked = false);
-    },
-    saved(params) {
-      alert(this.params);
-      return (this.bookmarked = params);
+    // watchBookmark() {
+    //   return this.bookmarks.includes(this.user.id)
+    //     ? (this.bookmarked = true)
+    //     : (this.bookmarked = false);
+    // },
+    saved(status) {
+      return (this.bookmarked = status);
     },
   },
+  mounted() {
+    // this.watchBookmark();
+    console.log(this.bookmarks)
+  },  
 
   props: {
     blog_color: {

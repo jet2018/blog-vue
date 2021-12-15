@@ -15,6 +15,8 @@ import ContactUs from "../components/contactUs"
 import becomeauthor from "../components/becomeauthor"
 import createArticle from "../components/create_article"
 import categorical from '../components/categorical'
+import activity from "../views/activity.vue"
+
 Vue.use(VueRouter)
 
 const routes = [{
@@ -54,10 +56,6 @@ const routes = [{
         name: 'Register',
         component: Register
     }, {
-        path: '/article/:slug',
-        name: 'Single',
-        component: single
-    }, {
         path: '/forgot',
         name: 'Forgot',
         component: Forgot
@@ -91,6 +89,15 @@ const routes = [{
         path: "/compose",
         name: "createArticle",
         component: createArticle
+    },
+    {
+        path: "/activity",
+        name: "Activity",
+        component: activity
+    }, {
+        path: '/article/:slug',
+        name: 'Single',
+        component: single
     },
     {
         path: '/:catchAll(.*)',

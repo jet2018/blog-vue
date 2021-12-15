@@ -1,26 +1,28 @@
 <template>
   <div>
     <v-card height="auto" width="300">
-      <center>
-        <v-avatar size="120" class="m-1 p-1"
-          ><v-img :src="profile_pik"></v-img
-        ></v-avatar>
-      </center>
-      <h6
-        v-text="current_user"
-        class="text-center px-1 text-truncate text-capitalize"
-      ></h6>
-      <center>
-        <span
-          v-text="profession"
-          class="text-center px-1 text-truncate text-muted"
-        ></span>
-        <br />
-        <span
-          v-text="location"
-          class="text-center text-truncate px-1 text-muted"
-        ></span>
-      </center>
+      <div @click="userprofile">
+        <center>
+          <v-avatar size="120" class="m-1 p-1"
+            ><v-img :src="profile_pik"></v-img
+          ></v-avatar>
+        </center>
+        <h6
+          v-text="current_user"
+          class="text-center px-1 text-truncate text-capitalize"
+        ></h6>
+        <center>
+          <span
+            v-text="profession"
+            class="text-center px-1 text-truncate text-muted"
+          ></span>
+          <br />
+          <span
+            v-text="location"
+            class="text-center text-truncate px-1 text-muted"
+          ></span>
+        </center>
+      </div>
       <Follow
         class="bg-info"
         v-bind:id="id"
@@ -69,6 +71,9 @@ export default {
   methods: {
     resetFollowers(follow) {
       this.$emit("resetFollowing", follow);
+    },
+    userprofile() {
+      alert(this.id);
     },
   },
 };
